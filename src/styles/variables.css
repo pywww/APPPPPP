@@ -1,0 +1,47 @@
+/**
+ * 设计令牌：冷淡风基线（与 Figma Token 文档对齐）。
+ * 如需二次微调，仅修改此文件即可全局联动页面样式。
+ */
+:root {
+  /* 品牌与文本 */
+  --color-primary: #6d5dfb;
+  --color-primary-soft: #edebff;
+  --color-text: #141824;
+  --color-text-secondary: #5b6276;
+  --color-text-tertiary: #8a91a6;
+
+  /* 页面与卡片 */
+  --color-bg: #f7f8fc;
+  --color-bg-elevated: #ffffff;
+  --color-border: #e6e8f2;
+  --color-disabled: #c7cad8;
+  --color-danger: #e84d6a;
+  --color-overlay-scrim: rgb(17 24 39 / 45%);
+  --color-toast: #111827;
+  /* 兼容旧变量名 */
+  --color-card: var(--color-bg-elevated);
+  --color-chrome-outer: #e6e8f2;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --shadow-card: 0 6px 16px rgb(17 24 39 / 12%);
+  --shadow-hero: 0 10px 24px rgb(17 24 39 / 14%);
+  --space-page: 16px;
+  --space-section: 24px;
+
+  /* 首页主卡渐变 */
+  --gradient-hero: linear-gradient(135deg, #f7f8fc 0%, #edebff 45%, #ffffff 100%);
+  --gradient-hero-accent: radial-gradient(ellipse 80% 60% at 88% 28%, rgb(109 93 251 / 24%) 0%, transparent 58%);
+
+  /* antd-mobile 主题变量（组件内主色会跟这里走） */
+  --adm-color-primary: var(--color-primary);
+  --adm-color-success: #16a34a;
+  --adm-color-warning: #d97706;
+  --adm-color-danger: var(--color-danger);
+  --adm-color-text: var(--color-text);
+  --adm-color-text-secondary: var(--color-text-secondary);
+  --adm-color-weak: var(--color-border);
+  --adm-color-background: var(--color-bg);
+  --adm-border-radius-s: 8px;
+  --adm-border-radius-m: 12px;
+  --adm-border-radius-l: 16px;
+}

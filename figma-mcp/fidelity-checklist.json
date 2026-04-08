@@ -1,0 +1,27 @@
+{
+  "project": "衣橱H5",
+  "threshold": 95,
+  "weights": {
+    "layoutSpacing": 30,
+    "typography": 20,
+    "colorsOpacity": 20,
+    "radiusShadowBorder": 10,
+    "interactionStates": 10,
+    "assetsConsistency": 10
+  },
+  "pages": [
+    {
+      "route": "/home",
+      "figmaNodeId": "1:56",
+      "scores": {
+        "layoutSpacing": 95,
+        "typography": 94,
+        "colorsOpacity": 95,
+        "radiusShadowBorder": 96,
+        "interactionStates": 96,
+        "assetsConsistency": 95
+      },
+      "notes": "已完成首轮 Figma 对稿，顶部栏/主卡/双入口卡与底栏视觉已对齐，建议真机再做字体微调。"
+    }
+  ]
+}

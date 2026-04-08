@@ -1,0 +1,66 @@
+.app-header {
+  height: 56px;
+  margin: 0 calc(var(--space-page) * -1) 16px;
+  padding: 0 var(--space-page);
+  background: rgb(239 244 251 / 80%);
+  backdrop-filter: blur(12px);
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.app-header__side {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header__side--right {
+  justify-self: end;
+}
+
+.app-header__icon-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #015edf;
+  padding: 0;
+  font-size: 20px;
+}
+
+.app-header__menu-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.app-header__more-icon {
+  width: 5px;
+  height: 18px;
+  display: block;
+  transform: scale(3);
+  transform-origin: center;
+}
+
+.app-header__title {
+  margin: 0;
+  text-align: center;
+  color: #015edf;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.app-header__placeholder {
+  width: 22px;
+  height: 22px;
+}

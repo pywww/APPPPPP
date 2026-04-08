@@ -1,0 +1,32 @@
+.wardrobe__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 var(--space-page) 24px;
+}
+
+.wardrobe__cell {
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: #e5e7eb;
+}
+
+.wardrobe__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wardrobe__empty {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.wardrobe__empty .adm-button {
+  margin-top: 16px;
+}

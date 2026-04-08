@@ -1,0 +1,42 @@
+.onboarding__body {
+  padding: 24px var(--space-page);
+}
+
+.onboarding__title {
+  font-size: 22px;
+  margin: 0 0 12px;
+}
+
+.onboarding__desc {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.onboarding__dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.onboarding__dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+.onboarding__dots .dot.active {
+  background: var(--color-primary);
+  width: 22px;
+  border-radius: 4px;
+}
+
+.onboarding__footer {
+  padding: 16px var(--space-page) calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.onboarding__footer .mt {
+  margin-top: 12px;
+}

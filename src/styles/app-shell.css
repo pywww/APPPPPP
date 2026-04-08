@@ -1,0 +1,39 @@
+/**
+ * H5 手机画幅：桌面浏览器里固定最大宽度，避免整屏拉成「大片灰底」。
+ * 设计稿宽度若为 375/390/414，改 --app-max-width 即可。
+ */
+.app-shell {
+  width: 100%;
+  max-width: var(--app-max-width, 390px);
+  min-height: 100svh;
+  background: var(--color-bg);
+  box-shadow:
+    0 0 0 1px rgb(28 25 23 / 6%),
+    0 24px 80px rgb(28 25 23 / 10%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 让路由树占满画幅，底栏能贴在视口底部 */
+.app-shell__fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+@media (max-width: 420px) {
+  .app-shell {
+    box-shadow: none;
+    max-width: none;
+  }
+}
+
+/* 路由出口占满中间区域，便于底栏贴底 */
+.route-outlet-fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}

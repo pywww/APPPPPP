@@ -1,0 +1,30 @@
+.msetup__body {
+  padding: var(--space-page);
+}
+
+.msetup__body h1 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.msetup__sub {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.msetup__placeholder {
+  min-height: 240px;
+  border-radius: var(--radius-card);
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  margin-bottom: 24px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}

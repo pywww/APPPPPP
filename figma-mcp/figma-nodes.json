@@ -1,0 +1,30 @@
+{
+  "fileKey": "fpf9PL9NrunB3fONWpUfYV",
+  "fileName": "衣橱app",
+  "pages": [
+    { "id": 1, "name": "首页", "screen": "Screen/Home", "nodeId": "1:56", "route": "/home", "mvp": true },
+    { "id": 2, "name": "设置模特页1", "screen": "Screen/Model/Setup1", "nodeId": "1:160", "route": "/model/setup1", "mvp": true },
+    { "id": 3, "name": "设置模特页2", "screen": "Screen/Model/Setup2", "nodeId": "1:194", "route": "/model/setup2", "mvp": true },
+    { "id": 4, "name": "试穿新衣空白页", "screen": "Screen/TryOn/ImagePicker/EmptyA", "nodeId": "1:491", "route": "/tryon/pick", "mvp": true },
+    { "id": 5, "name": "访问权限请求", "screen": "Comp/Dialog/AlbumPermission", "nodeId": "2:264", "route": "/tryon/pick", "mvp": true },
+    { "id": 6, "name": "试穿新衣选择", "screen": "Screen/TryOn/ImagePicker/SelectedA", "nodeId": "1:1204", "route": "/tryon/pick", "mvp": true },
+    { "id": 7, "name": "试穿新衣加载", "screen": "Screen/TryOn/LoadingA", "nodeId": "1:1277", "route": "/tryon/loading", "mvp": true },
+    { "id": 8, "name": "试穿错误", "screen": "Screen/TryOn/Error", "nodeId": "1:1311", "route": "/tryon/error", "mvp": true },
+    { "id": 9, "name": "试穿结果", "screen": "Screen/TryOn/Result", "nodeId": "1:451", "route": "/tryon/result", "mvp": true },
+    { "id": 10, "name": "试穿结果后保存", "screen": "Screen/TryOn/Result_SavedToast", "nodeId": "2:296", "route": "/tryon/result", "mvp": true },
+    { "id": 11, "name": "衣橱空白页", "screen": "Screen/Wardrobe/Empty", "nodeId": "1:623", "route": "/wardrobe", "mvp": true },
+    { "id": 12, "name": "上传衣服空白页", "screen": "Screen/TryOn/ImagePicker/EmptyB", "nodeId": "1:529", "route": "/tryon/pick", "mvp": true },
+    { "id": 13, "name": "衣服上传选择页", "screen": "Screen/TryOn/ImagePicker/SelectedB", "nodeId": "1:1244", "route": "/tryon/pick", "mvp": true },
+    { "id": 14, "name": "衣服上传加载页", "screen": "Screen/TryOn/LoadingB", "nodeId": "1:1340", "route": "/tryon/loading", "mvp": true },
+    { "id": 15, "name": "衣物编辑详情页", "screen": "Screen/TryOn/ResultEdit", "nodeId": "1:918", "route": "/tryon/edit", "mvp": true },
+    { "id": 16, "name": "我的衣橱页", "screen": "Screen/Wardrobe", "nodeId": "1:349", "route": "/wardrobe", "mvp": true },
+    { "id": 17, "name": "衣服筛选页", "screen": "Overlay/Wardrobe/FilterSheet", "nodeId": "1:272", "route": "/wardrobe", "mvp": true },
+    { "id": 18, "name": "衣服详情页", "screen": "Screen/Wardrobe/Detail", "nodeId": "1:676", "route": "/wardrobe/item/:id", "mvp": true },
+    { "id": 19, "name": "我的穿搭页", "screen": "Screen/Workshop", "nodeId": "1:736", "route": "/workshop", "mvp": true },
+    { "id": 20, "name": "穿搭保存页", "screen": "Screen/Workshop/Result", "nodeId": "1:807", "route": "/workshop/result", "mvp": true },
+    { "id": 21, "name": "穿搭记录页", "screen": "Screen/Looks", "nodeId": "1:965", "route": "/looks", "mvp": true },
+    { "id": 22, "name": "穿搭详情页", "screen": "Screen/Looks/Detail", "nodeId": "1:1062", "route": "/looks/:id", "mvp": true },
+    { "id": 23, "name": "个人中心页", "screen": "Screen/Profile", "nodeId": "1:1133", "route": "/profile", "mvp": true },
+    { "id": 24, "name": "我的模特页", "screen": "Screen/Profile/MyModel", "nodeId": "1:113", "route": "/profile/model", "mvp": true }
+  ]
+}

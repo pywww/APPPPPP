@@ -1,0 +1,16 @@
+.tresult__img {
+  padding: var(--space-page);
+  text-align: center;
+  background: #111;
+}
+
+.tresult__img img {
+  max-width: 100%;
+  max-height: 55dvh;
+  object-fit: contain;
+}
+
+.tresult__bar {
+  padding: var(--space-page);
+  padding-bottom: calc(var(--space-page) + env(safe-area-inset-bottom, 0px));
+}

@@ -1,0 +1,26 @@
+.workshop__body {
+  padding: var(--space-page);
+}
+
+.workshop__split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+  min-height: 360px;
+}
+
+.workshop__card {
+  padding: 12px;
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  font-size: 14px;
+}
+
+.workshop__card .hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
