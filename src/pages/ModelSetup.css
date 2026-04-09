@@ -177,6 +177,10 @@
   width: 100%;
 }
 
+.msetup__file-input {
+  display: none;
+}
+
 @media (max-width: 390px) {
   .msetup__preview {
     height: 420px;

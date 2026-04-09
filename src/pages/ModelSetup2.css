@@ -1,0 +1,114 @@
+.msetup2 {
+  min-height: 100dvh;
+  background: var(--ds-color-neutral-75);
+  display: flex;
+  flex-direction: column;
+}
+
+.msetup2 .app-header {
+  width: 390px;
+  min-width: 390px;
+  max-width: 390px;
+  height: 56px;
+  margin: 0;
+  align-self: center;
+}
+
+.msetup2__main {
+  flex: 1;
+  padding: var(--ds-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+}
+
+.msetup2__preview {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-neutral-150);
+  box-shadow: var(--ds-shadow-lg);
+}
+
+.msetup2__photo-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.figma.com/api/mcp/asset/b6231b5c-097a-4f8f-97e1-30feb660348e");
+  background-size: cover;
+  background-position: center;
+}
+
+.msetup2__photo-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.msetup2__glass {
+  position: absolute;
+  left: var(--ds-space-4);
+  right: var(--ds-space-4);
+  bottom: var(--ds-space-4);
+  min-height: 64px;
+  padding: 0 17px;
+  border: var(--ds-border-width-default) solid var(--ds-border-color-soft);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-color-overlay-header);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.msetup2__glass-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.msetup2__glass-title {
+  margin: 0;
+  color: var(--ds-color-text-brand);
+  font-size: 13px;
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+  font-weight: var(--ds-font-weight-bold);
+  text-transform: uppercase;
+}
+
+.msetup2__glass-sub {
+  margin: 0;
+  color: var(--ds-color-text-tertiary);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.msetup2__glass-icon-btn {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-brand-primary-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-color-text-brand);
+}
+
+.msetup2__glass-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.msetup2__form {
+  gap: var(--ds-space-4);
+}
+
+.msetup2__footer {
+  padding: var(--ds-space-4);
+  background: var(--ds-color-overlay-header-strong);
+  backdrop-filter: blur(6px);
+}
