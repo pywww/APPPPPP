@@ -12,14 +12,17 @@
   height: 56px;
   display: flex;
   align-items: center;
-  gap: var(--ds-space-2);
+  justify-content: center;
   padding-inline: var(--ds-space-2);
   background: var(--ds-color-overlay-header);
   backdrop-filter: blur(12px);
   align-self: center;
+  position: relative;
 }
 
 .msetup__topbar-back {
+  position: absolute;
+  left: var(--ds-space-2);
   width: 40px;
   height: 40px;
   border: 0;
