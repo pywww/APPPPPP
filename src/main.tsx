@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import 'antd-mobile/es/global/global.css'
 import '@/styles/variables.css'
 import '@/styles/base.css'
+import '@/styles/design-system.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

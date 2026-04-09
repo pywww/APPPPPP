@@ -1,0 +1,356 @@
+/**
+ * Design System 基础骨架（来自已提取的真实 Figma 数值）
+ * 目标：提供可复用 token + 基础组件 class，减少页面重复开发与样式漂移。
+ */
+
+:root {
+  /* Colors */
+  --ds-color-brand-primary: #015edf;
+  --ds-color-brand-primary-hover: #0057cf;
+  --ds-color-brand-primary-deep: #00429c;
+  --ds-color-brand-primary-soft: rgba(1, 94, 223, 0.05);
+  --ds-color-brand-primary-soft-2: rgba(0, 87, 207, 0.18);
+  --ds-color-accent-pink: #fcb1c6;
+  --ds-color-accent-pink-soft: rgba(252, 177, 201, 0.2);
+  --ds-color-accent-pink-soft-2: rgba(253, 177, 202, 0.22);
+  --ds-color-accent-mauve: #884c61;
+  --ds-color-accent-blue-light: #b1c5ff;
+  --ds-color-accent-blue-verylight: #dae2ff;
+  --ds-color-neutral-0: #ffffff;
+  --ds-color-neutral-25: #fbf9f9;
+  --ds-color-neutral-50: #f8fafc;
+  --ds-color-neutral-75: #f6f9ff;
+  --ds-color-neutral-100: #f5f7fb;
+  --ds-color-neutral-150: #eff4fb;
+  --ds-color-neutral-200: #e9eef5;
+  --ds-color-neutral-250: #e3e9f0;
+  --ds-color-neutral-300: #dae3f2;
+  --ds-color-neutral-400: #c6c6c6;
+  --ds-color-text-primary: #171c21;
+  --ds-color-text-secondary: #3e4753;
+  --ds-color-text-tertiary: #474747;
+  --ds-color-text-quaternary: #565f6c;
+  --ds-color-text-placeholder: #6b7280;
+  --ds-color-text-inverse: #ffffff;
+  --ds-color-text-brand: #015edf;
+  --ds-color-text-muted-on-dark: rgba(255, 255, 255, 0.7);
+  --ds-color-status-success-bg: rgba(1, 94, 223, 0.1);
+  --ds-color-status-error-bg: #ffdad6;
+  --ds-color-overlay-header: rgba(239, 244, 251, 0.8);
+  --ds-color-overlay-header-strong: rgba(239, 244, 251, 0.9);
+  --ds-color-overlay-white-20: rgba(255, 255, 255, 0.2);
+  --ds-color-overlay-white-30: rgba(255, 255, 255, 0.3);
+  --ds-color-overlay-white-60: rgba(255, 255, 255, 0.6);
+  --ds-color-overlay-dark-30: rgba(0, 0, 0, 0.3);
+  --ds-color-gradient-hero-mask-from: rgba(27, 28, 28, 0.8);
+  --ds-color-gradient-hero-mask-to: rgba(27, 28, 28, 0);
+
+  /* Fonts */
+  --ds-font-family-base: Manrope, "Noto Sans SC", "Noto Sans JP", sans-serif;
+  --ds-font-family-cn-alt: "WenQuanYi Zen Hei", sans-serif;
+  --ds-font-size-caption: 10px;
+  --ds-font-size-overline: 11px;
+  --ds-font-size-body-sm: 12px;
+  --ds-font-size-body: 14px;
+  --ds-font-size-body-lg: 16px;
+  --ds-font-size-title-sm: 18px;
+  --ds-font-size-title: 20px;
+  --ds-font-size-display-sm: 24px;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+  --ds-line-height-15: 15px;
+  --ds-line-height-16: 16px;
+  --ds-line-height-20: 20px;
+  --ds-line-height-24: 24px;
+  --ds-line-height-28: 28px;
+  --ds-line-height-32: 32px;
+  --ds-letter-spacing-tight-title: -0.45px;
+  --ds-letter-spacing-tight-display: -0.6px;
+  --ds-letter-spacing-tab-caption: 0.5px;
+  --ds-letter-spacing-overline: 1px;
+  --ds-letter-spacing-overline-wide: 1.2px;
+
+  /* Spacing & Size */
+  --ds-space-0: 0;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-7: 28px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+  --ds-space-14: 56px;
+  --ds-space-16: 64px;
+  --ds-space-20: 80px;
+  --ds-size-header: 56px;
+  --ds-size-bottom-nav: 80px;
+  --ds-size-button-md: 44px;
+  --ds-size-button-lg: 48px;
+  --ds-size-button-xl: 52px;
+
+  /* Radius */
+  --ds-radius-xs: 4px;
+  --ds-radius-sm: 8px;
+  --ds-radius-md: 12px;
+  --ds-radius-lg: 16px;
+  --ds-radius-xl: 24px;
+  --ds-radius-full: 9999px;
+
+  /* Shadow & Border */
+  --ds-shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --ds-shadow-md: 0px 8px 30px 0px rgba(0, 0, 0, 0.04);
+  --ds-shadow-lg: 0px 20px 40px 0px rgba(23, 28, 33, 0.06);
+  --ds-shadow-xl: 0px 20px 50px 0px rgba(0, 87, 207, 0.08);
+  --ds-shadow-brand-button: 0px 10px 15px -3px rgba(0, 87, 207, 0.2), 0px 4px 6px -4px rgba(0, 87, 207, 0.2);
+  --ds-shadow-brand-fab: 0px 25px 50px -12px rgba(0, 87, 207, 0.4);
+  --ds-shadow-brand-top: 0px -20px 40px 0px rgba(1, 94, 223, 0.06);
+  --ds-shadow-overlay-card: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --ds-shadow-overlay-panel: 0px -10px 30px 0px rgba(0, 0, 0, 0.03);
+  --ds-border-color-default: rgba(1, 94, 223, 0.1);
+  --ds-border-color-soft: rgba(255, 255, 255, 0.2);
+  --ds-border-color-soft-strong: rgba(255, 255, 255, 0.4);
+  --ds-border-color-pink-soft: rgba(252, 177, 198, 0.3);
+  --ds-border-width-default: 1px;
+}
+
+/* 页面基础 */
+.page {
+  background: var(--ds-color-neutral-75);
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-family-base);
+}
+
+/* Header */
+.app-header {
+  height: var(--ds-size-header);
+  padding-inline: var(--ds-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ds-color-overlay-header);
+}
+
+.app-header--strong {
+  background: var(--ds-color-overlay-header-strong);
+  box-shadow: var(--ds-shadow-brand-top);
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
+  color: var(--ds-color-text-brand);
+  font-weight: var(--ds-font-weight-regular);
+}
+
+/* Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  border-radius: var(--ds-radius-md);
+  border: var(--ds-border-width-default) solid transparent;
+  font-family: var(--ds-font-family-cn-alt);
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+  cursor: pointer;
+}
+
+.btn--md {
+  height: var(--ds-size-button-md);
+}
+
+.btn--lg {
+  height: var(--ds-size-button-lg);
+}
+
+.btn--xl {
+  height: var(--ds-size-button-xl);
+}
+
+.btn--primary {
+  background: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+  border-color: var(--ds-color-brand-primary);
+  box-shadow: var(--ds-shadow-brand-button);
+}
+
+.btn--primary:hover {
+  background: var(--ds-color-brand-primary-hover);
+  border-color: var(--ds-color-brand-primary-hover);
+}
+
+.btn--primary:active {
+  background: var(--ds-color-brand-primary-deep);
+  border-color: var(--ds-color-brand-primary-deep);
+}
+
+.btn--secondary {
+  background: var(--ds-color-neutral-0);
+  color: var(--ds-color-text-brand);
+  border-color: var(--ds-color-brand-primary);
+}
+
+.btn[disabled] {
+  background: var(--ds-color-neutral-200);
+  color: var(--ds-color-text-placeholder);
+  border-color: var(--ds-color-neutral-200);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Input */
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+
+.input-field__label {
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+  color: var(--ds-color-text-quaternary);
+  font-weight: var(--ds-font-weight-bold);
+}
+
+.input-field__wrap {
+  height: var(--ds-size-button-lg);
+  padding-inline: var(--ds-space-4);
+  background: var(--ds-color-neutral-200);
+  border-radius: var(--ds-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-field__wrap:focus-within {
+  box-shadow: 0 0 0 1px var(--ds-border-color-default);
+}
+
+.input-field__control {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+}
+
+.input-field__control::placeholder {
+  color: var(--ds-color-text-placeholder);
+}
+
+.input-field__unit {
+  color: var(--ds-color-text-tertiary);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-20);
+}
+
+/* Tag */
+.tag {
+  height: var(--ds-space-10);
+  padding: 10px 20px;
+  border-radius: var(--ds-radius-full);
+  border: 0;
+  font-family: var(--ds-font-family-cn-alt);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-20);
+  cursor: pointer;
+}
+
+.tag--active {
+  background: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+  box-shadow: var(--ds-shadow-brand-button);
+}
+
+.tag--default {
+  background: var(--ds-color-neutral-200);
+  color: var(--ds-color-text-tertiary);
+}
+
+.tag[disabled] {
+  background: var(--ds-color-neutral-200);
+  color: var(--ds-color-text-placeholder);
+  cursor: not-allowed;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 3.5px 12px 3.5px 13px;
+  border-radius: var(--ds-radius-full);
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-overline);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.badge--success {
+  background: var(--ds-color-status-success-bg);
+  color: var(--ds-color-text-brand);
+}
+
+.badge--error {
+  background: var(--ds-color-status-error-bg);
+  color: var(--ds-color-text-primary);
+}
+
+/* Card / Form / Action 区块 */
+.card {
+  background: var(--ds-color-neutral-0);
+  border-radius: var(--ds-radius-md);
+  box-shadow: var(--ds-shadow-md);
+}
+
+.card--large {
+  border-radius: var(--ds-radius-lg);
+}
+
+.card__body {
+  padding: var(--ds-space-4);
+}
+
+.card__title {
+  margin: 0;
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-font-size-title);
+  line-height: var(--ds-line-height-28);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+}
+
+.form__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-space-3);
+}
+
+/* 响应式：仅使用项目已出现尺寸 */
+@media (max-width: 390px) {
+  .page {
+    width: 100%;
+  }
+}
+
+@media (min-width: 448px) {
+  .page {
+    max-width: 448px;
+    margin-inline: auto;
+  }
+}
