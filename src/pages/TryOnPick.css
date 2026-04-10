@@ -1,0 +1,198 @@
+.tpick {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-color-neutral-75);
+}
+
+.tpick .app-header {
+  width: 390px;
+  min-width: 390px;
+  max-width: 390px;
+  height: 56px;
+  margin: 0;
+  align-self: center;
+}
+
+.tpick__main {
+  flex: 1;
+  padding: var(--ds-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+}
+
+.tpick__card {
+  min-height: 548px;
+  padding: var(--ds-space-4);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-md);
+}
+
+.tpick__image-stage {
+  position: relative;
+  min-height: 438px;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-neutral-200);
+  overflow: hidden;
+}
+
+.tpick__image-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--ds-color-neutral-200) 0%,
+    var(--ds-color-neutral-250) 100%
+  );
+}
+
+/* Figma「试穿新衣选择」：已选图时弱化底纹，突出预览 */
+.tpick__image-stage--has-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tpick__image-stage--has-preview::before {
+  opacity: 0.45;
+}
+
+.tpick__preview-img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 100%;
+  max-height: 438px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.tpick__preview-badge {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: var(--ds-space-4);
+  transform: translateX(-50%);
+}
+
+.tpick__empty-chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 0;
+  min-height: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  text-align: center;
+}
+
+.tpick__empty-icon-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tpick__empty-icon {
+  width: 82px;
+  height: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-color-text-brand);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-brand-primary-soft);
+}
+
+.tpick__empty-icon-svg {
+  width: 36px;
+  height: 28px;
+  display: block;
+}
+
+.tpick__empty-title {
+  color: var(--ds-color-text-brand);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  font-family: var(--ds-font-family-cn-alt);
+  margin: 0;
+  margin-top: 8px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.tpick__empty-sub {
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+}
+
+.tpick__tips {
+  margin-top: var(--ds-space-4);
+  text-align: center;
+  color: var(--ds-color-text-brand);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: 19.5px;
+  letter-spacing: var(--ds-letter-spacing-overline-wide);
+}
+
+.tpick__tips p {
+  margin: 0;
+}
+
+/* 长说明固定两行，略缩小字号以适配卡片宽度 */
+.tpick__tips-detail {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+/* EmptyA：两行宽度接近，整组在卡片内水平居中 */
+.tpick__tips-detail--empty {
+  align-items: center;
+}
+
+.tpick__tips-detail--empty .tpick__tips-detail-line {
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+}
+
+.tpick__tips-detail-line {
+  margin: 0;
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-overline-wide);
+  color: var(--ds-color-text-brand);
+  white-space: nowrap;
+}
+
+.tpick__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+
+.tpick__actions .btn {
+  width: 100%;
+}
+
+.tpick__file-input {
+  display: none;
+}

@@ -148,3 +148,56 @@ export function MoreDotsVerticalIcon({ className, style }: IconProps) {
     </svg>
   )
 }
+
+export function CameraPlusIcon({ className, style }: IconProps) {
+  return (
+    <svg viewBox="0 0 32 24" aria-hidden className={className} style={style}>
+      <path
+        d="M6.5 6.5H10.5L12.2 4.5H19.8L21.5 6.5H25.5C26.33 6.5 27 7.17 27 8V20C27 20.83 26.33 21.5 25.5 21.5H6.5C5.67 21.5 5 20.83 5 20V8C5 7.17 5.67 6.5 6.5 6.5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="16" cy="14" r="4.2" fill="none" stroke="currentColor" strokeWidth="2.6" />
+      <path d="M26.2 -2.4V3.8" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+      <path d="M23.7 1.3H28.7" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/** 四宫格，用于「搭配衣橱」等入口 */
+export function Grid2x2Icon({ className, style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} style={style}>
+      <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  )
+}
+
+/** 循环箭头，用于「再试一件」 */
+export function RefreshIcon({ className, style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} style={style}>
+      <path
+        d="M4 4v5h5M20 20v-5h-5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M20.49 9A9 9 0 005.64 5.64L4 4m0 16l1.64-1.64A9 9 0 0019.51 15"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}

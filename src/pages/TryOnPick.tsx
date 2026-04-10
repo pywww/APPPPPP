@@ -1,13 +1,25 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Empty, Toast } from 'antd-mobile'
+import { Toast } from 'antd-mobile'
 import { AppHeader } from '@/components/layout/AppHeader'
+import { AlbumPermissionDialog } from '@/components/dialogs/AlbumPermissionDialog'
+import { CameraPlusIcon } from '@/components/icons/AppIcons'
 import { useTryOnStore } from '@/stores/tryOnStore'
 import { fileToDataUrl } from '@/utils/image'
+import './TryOnPick.css'
 
+const ALBUM_PERMISSION_KEY = 'tryon_album_permission_granted'
+
+/**
+ * 试穿选衣：空态对应 Figma EmptyA（1:491），已选图态对应 SelectedA（1:1204）。
+ * 同一路由 /tryon/pick，通过 tryOnStore.garmentPreviewUrl 切换展示。
+ */
 export default function TryOnPick() {
   const nav = useNavigate()
-  const inputRef = useRef<HTMLInputElement>(null)
+  const albumInputRef = useRef<HTMLInputElement>(null)
+  const cameraInputRef = useRef<HTMLInputElement>(null)
+  const [showAlbumPermission, setShowAlbumPermission] = useState(false)
+  const garmentPreviewUrl = useTryOnStore((s) => s.garmentPreviewUrl)
   const setGarmentPreview = useTryOnStore((s) => s.setGarmentPreview)
 
   const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,28 +32,144 @@ export default function TryOnPick() {
     }
     try {
       const url = await fileToDataUrl(file)
+      // 选图后进入「试穿新衣选择」态（Figma 1:1204），由用户确认后再进入加载
       setGarmentPreview(url)
-      nav('/tryon/loading')
     } catch {
       Toast.show({ content: '读取图片失败' })
     }
   }
 
+  // 相册入口统一走权限弹窗，便于与 Figma 的权限组件保持一致。
+  const openAlbumWithPermission = () => {
+    const granted = window.localStorage.getItem(ALBUM_PERMISSION_KEY) === '1'
+    if (granted) {
+      albumInputRef.current?.click()
+      return
+    }
+    setShowAlbumPermission(true)
+  }
+
+  const onConfirmAlbumPermission = () => {
+    // 用户首次明确允许后持久化记录，后续不再重复弹窗。
+    window.localStorage.setItem(ALBUM_PERMISSION_KEY, '1')
+    setShowAlbumPermission(false)
+    albumInputRef.current?.click()
+  }
+
+  const goTryOn = () => {
+    if (!garmentPreviewUrl) return
+    nav('/tryon/loading')
+  }
+
+  // SelectedA：返回即回到 EmptyA（同路由，清空预览）；空态再走历史返回。
+  const onHeaderBack = () => {
+    if (garmentPreviewUrl) {
+      setGarmentPreview('')
+      return
+    }
+    nav(-1)
+  }
+
   return (
-    <div style={{ minHeight: '100%', background: 'var(--color-bg)' }}>
-      <AppHeader title="试穿新衣" onBack={() => nav(-1)} />
-      <div style={{ padding: '24px var(--space-page)' }}>
-        <Empty description="上传您的新衣照片开始试穿" />
-        <div style={{ textAlign: 'center', marginTop: 16 }}>
-          <Button color="primary" shape="rounded" onClick={() => inputRef.current?.click()}>
-            选择图片
-          </Button>
+    <div className="tpick page">
+      <AppHeader title="试穿新衣" onBack={onHeaderBack} />
+
+      <main className="tpick__main">
+        <section className="tpick__card card card--large">
+          <div
+            className={
+              garmentPreviewUrl
+                ? 'tpick__image-stage tpick__image-stage--has-preview'
+                : 'tpick__image-stage'
+            }
+          >
+            {garmentPreviewUrl ? (
+              <>
+                <img
+                  src={garmentPreviewUrl}
+                  alt="已选择的衣物照片"
+                  className="tpick__preview-img"
+                />
+                <span className="badge badge--success tpick__preview-badge">衣物已识别</span>
+              </>
+            ) : (
+              <div className="tpick__empty-chip">
+                <button
+                  type="button"
+                  className="tpick__empty-icon-btn"
+                  aria-label="上传照片"
+                  onClick={openAlbumWithPermission}
+                >
+                  <span className="tpick__empty-icon" aria-hidden>
+                    <CameraPlusIcon className="tpick__empty-icon-svg" />
+                  </span>
+                </button>
+                <span className="tpick__empty-title">上传您的新衣服照片开始试穿</span>
+              </div>
+            )}
+          </div>
+
+          <div className="tpick__tips">
+            {garmentPreviewUrl ? (
+              <div className="tpick__tips-detail">
+                {/* SelectedA：手工断行 + nowrap，避免「秒/内」等被拆行 */}
+                <p className="tpick__tips-detail-line">自动识别衣物轮廓。点击“开始试穿”后，</p>
+                <p className="tpick__tips-detail-line">AI 将在 15-30 秒内为您生成逼真的上身效果图。</p>
+              </div>
+            ) : (
+              <div className="tpick__tips-detail tpick__tips-detail--empty">
+                {/* EmptyA：拍摄指引，按字数对半断行（约 21 + 21 字），两行视觉长度接近 */}
+                <p className="tpick__tips-detail-line">为了获得最佳的试穿效果，请确保衣服照片光线</p>
+                <p className="tpick__tips-detail-line">充足且背景简洁，建议使用全身或半身正面照。</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <div className="tpick__actions">
+          {garmentPreviewUrl ? (
+            <>
+              <button type="button" className="btn btn--primary btn--md" onClick={goTryOn}>
+                开始试穿
+              </button>
+              <button type="button" className="btn btn--secondary btn--md" onClick={openAlbumWithPermission}>
+                重新选择
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" className="btn btn--primary btn--md" onClick={openAlbumWithPermission}>
+                从相册上传
+              </button>
+              <button type="button" className="btn btn--secondary btn--md" onClick={() => cameraInputRef.current?.click()}>
+                拍摄新照片
+              </button>
+            </>
+          )}
         </div>
-        <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginTop: 24, lineHeight: 1.5 }}>
-          Demo：浏览器将弹出文件选择；正式版再对齐相册权限弹窗。
-        </p>
-      </div>
-      <input ref={inputRef} type="file" accept="image/*" hidden onChange={onFile} />
+      </main>
+
+      <input
+        ref={albumInputRef}
+        type="file"
+        accept="image/*"
+        className="tpick__file-input"
+        onChange={onFile}
+      />
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        className="tpick__file-input"
+        onChange={onFile}
+      />
+
+      <AlbumPermissionDialog
+        open={showAlbumPermission}
+        onCancel={() => setShowAlbumPermission(false)}
+        onConfirm={onConfirmAlbumPermission}
+      />
     </div>
   )
 }

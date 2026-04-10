@@ -1,0 +1,172 @@
+.album-permission {
+  /* 使用全屏遮罩承载系统权限弹窗的视觉结构 */
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-space-4);
+}
+
+.album-permission__mask {
+  position: absolute;
+  inset: 0;
+  background: var(--ds-color-overlay-dark-30);
+}
+
+.album-permission__panel {
+  /* 面板尺寸与 390 宽画板下常见 16px 边距对齐 */
+  position: relative;
+  width: 320px;
+  height: 380px;
+  border-radius: 24px;
+  box-shadow: var(--ds-shadow-overlay-card);
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--ds-color-neutral-0);
+}
+
+.album-permission__icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.album-permission__icon-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--ds-radius-full);
+  background: #f4f8ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.album-permission__icon-glyph {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.album-permission__icon-phone {
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 18px;
+  height: 24px;
+  border: 3px solid var(--ds-color-brand-primary);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.album-permission__icon-photo {
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  width: 18px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--ds-color-brand-primary);
+}
+
+.album-permission__icon-photo::before {
+  content: '';
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-neutral-0);
+}
+
+.album-permission__icon-photo::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  width: 12px;
+  height: 6px;
+  background: var(--ds-color-neutral-0);
+  clip-path: polygon(0% 100%, 35% 35%, 58% 72%, 80% 45%, 100% 100%);
+}
+
+.album-permission__title {
+  margin: 8px 0 0;
+  text-align: center;
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.album-permission__desc {
+  margin: 8px auto 0;
+  max-width: 288px;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-20);
+  text-align: center;
+}
+
+.album-permission__actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.album-permission__actions .btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 14px;
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.album-permission__text-btn {
+  border: 0;
+  background: transparent;
+  color: #969da8;
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  font-weight: var(--ds-font-weight-medium);
+  padding: 0;
+  min-height: 44px;
+}
+
+@media (max-width: 390px) {
+  .album-permission__panel {
+    width: 320px;
+    height: 380px;
+    border-radius: 24px;
+    padding: 20px 16px 16px;
+    gap: 10px;
+  }
+
+  .album-permission__icon-circle {
+    width: 68px;
+    height: 68px;
+  }
+
+  .album-permission__title {
+    font-size: var(--ds-font-size-title-sm);
+    line-height: var(--ds-line-height-28);
+  }
+
+  .album-permission__desc {
+    font-size: var(--ds-font-size-body);
+    line-height: var(--ds-line-height-20);
+  }
+
+  .album-permission__actions .btn,
+  .album-permission__text-btn {
+    font-size: var(--ds-font-size-body-lg);
+  }
+}

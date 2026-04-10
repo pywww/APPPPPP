@@ -1,0 +1,140 @@
+/**
+ * Screen/TryOn/Error（Figma 1:1311）
+ * 版式对齐 Screen/TryOn/LoadingA：页背景、顶栏、居中白卡片与阴影层级。
+ */
+
+.terr {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-color-neutral-75);
+  /* 大屏与 Tab 页一致：内容区可读宽度上限 */
+  max-width: min(448px, 100%);
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* 与试穿加载页一致：设计稿 390 宽时顶栏居中 */
+.terr .app-header {
+  width: min(390px, 100%);
+  margin-inline: auto;
+  flex-shrink: 0;
+}
+
+.terr__main {
+  flex: 1;
+  padding: var(--ds-space-4);
+  padding-bottom: max(var(--ds-space-6), env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 主内容卡片：白底、大圆角、与 Loading 弹窗同级阴影 */
+.terr__card {
+  width: 100%;
+  max-width: 320px;
+  padding: var(--ds-space-6) var(--ds-space-5) var(--ds-space-5);
+  border-radius: var(--ds-radius-xl);
+  box-shadow: var(--ds-shadow-lg);
+  background: var(--ds-color-neutral-0);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ds-space-5);
+  box-sizing: border-box;
+}
+
+/* —— 插画 —— */
+.terr__graphic {
+  display: flex;
+  justify-content: center;
+}
+
+/* 原 120×120（与 Loading 衣架圆一致），按需求缩为 1/2 */
+.terr__graphic-bg {
+  width: calc(var(--ds-space-6) * 2.5);
+  height: calc(var(--ds-space-6) * 2.5);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-status-error-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terr__graphic-svg {
+  display: block;
+  color: var(--ds-color-brand-primary-deep);
+}
+
+/* —— 文案 —— */
+.terr__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-2);
+  text-align: center;
+}
+
+.terr__title {
+  margin: 0;
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-family-cn-alt);
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
+}
+
+/* 说明文案：两行居中 */
+.terr__desc {
+  margin: 0;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-1);
+  text-align: center;
+}
+
+.terr__desc-line {
+  margin: 0;
+  width: 100%;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-20);
+  text-align: center;
+}
+
+/* —— 操作按钮：默认纵向全宽，≥400px 时双列 —— */
+.terr__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  width: 100%;
+}
+
+.terr__actions-inner {
+  width: 100%;
+  min-width: 0;
+}
+
+.terr__actions-inner .btn {
+  width: 100%;
+  min-height: var(--ds-size-button-lg);
+}
+
+@media (min-width: 400px) {
+  .terr__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .terr__actions-inner {
+    flex: 1 1 calc(50% - var(--ds-space-3) / 2);
+    min-width: 132px;
+  }
+}

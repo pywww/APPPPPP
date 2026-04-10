@@ -1,0 +1,181 @@
+/* Screen/TryOn/LoadingA — 头部 + 居中「试穿中」进度弹窗 */
+
+.tload {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-color-neutral-75);
+}
+
+.tload .app-header {
+  width: 390px;
+  min-width: 390px;
+  max-width: 390px;
+  height: 56px;
+  margin: 0;
+  align-self: center;
+}
+
+.tload__main {
+  flex: 1;
+  padding: var(--ds-space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 弹窗白卡片 */
+.tload__modal {
+  width: 100%;
+  max-width: 320px;
+  padding: var(--ds-space-6) var(--ds-space-5) var(--ds-space-5);
+  border-radius: var(--ds-radius-xl);
+  box-shadow: var(--ds-shadow-lg);
+  background: var(--ds-color-neutral-0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-5);
+}
+
+.tload__graphic {
+  display: flex;
+  justify-content: center;
+}
+
+/* 浅紫圆 + 轨道旋转点 + 居中衣架 */
+.tload__lavender-circle {
+  position: relative;
+  width: calc(var(--ds-space-6) * 5);
+  height: calc(var(--ds-space-6) * 5);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-accent-blue-verylight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tload__orbit {
+  position: absolute;
+  inset: 0;
+  animation: tload-orbit-spin 2.4s linear infinite;
+}
+
+.tload__orbit-dot {
+  position: absolute;
+  width: var(--ds-space-2);
+  height: var(--ds-space-2);
+  border-radius: var(--ds-radius-full);
+}
+
+.tload__orbit-dot--1 {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ds-color-accent-blue-light);
+}
+
+.tload__orbit-dot--2 {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ds-color-accent-mauve);
+}
+
+.tload__hanger {
+  position: relative;
+  z-index: 1;
+  width: var(--ds-space-8);
+  height: var(--ds-space-8);
+  color: var(--ds-color-brand-primary);
+  display: block;
+}
+
+@keyframes tload-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tload__title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.tload__title-line {
+  margin: 0;
+  text-align: center;
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
+}
+
+.tload__desc-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-1);
+}
+
+.tload__desc-line {
+  margin: 0;
+  text-align: center;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-20);
+}
+
+.tload__progress {
+  width: 100%;
+  height: var(--ds-space-2);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-neutral-200);
+  overflow: hidden;
+}
+
+/* 蓝色进度约 15s 从最左匀速铺满至最右，与 TS 中 LOADING_DURATION_MS 保持一致 */
+.tload__progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-brand-primary);
+  animation: tload-progress-linear 15s linear forwards;
+}
+
+@keyframes tload-progress-linear {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.tload__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+}
+
+.tload__footer-icon {
+  width: var(--ds-space-3);
+  height: var(--ds-space-3);
+  color: var(--ds-color-text-placeholder);
+  flex-shrink: 0;
+}
+
+.tload__footer-label {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-overline);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-color-text-placeholder);
+  text-transform: uppercase;
+}

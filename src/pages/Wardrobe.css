@@ -22,6 +22,13 @@
   display: block;
 }
 
+/* 从试穿结果保存后进入：突出显示对应试穿图 */
+.wardrobe__cell--emphasize {
+  box-shadow: 0 0 0 2px #015edf;
+  outline: 2px solid rgba(1, 94, 223, 0.35);
+  outline-offset: 2px;
+}
+
 .wardrobe__empty {
   padding: 48px 24px;
   text-align: center;
