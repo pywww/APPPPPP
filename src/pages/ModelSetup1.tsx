@@ -1,7 +1,9 @@
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Toast } from 'antd-mobile'
 import { LeftOutline } from 'antd-mobile-icons'
 import { useAppStore } from '@/stores/appStore'
+import { fileToDataUrl } from '@/utils/image'
 import './ModelSetup.css'
 
 export default function ModelSetup1() {
@@ -10,11 +12,20 @@ export default function ModelSetup1() {
   const albumInputRef = useRef<HTMLInputElement>(null)
   const cameraInputRef = useRef<HTMLInputElement>(null)
 
-  const handleSelectPhoto = (file: File | null) => {
+  /** 须使用 data URL：后端 DashScope 只接受 https 或 data:image/*;base64，不支持 blob: */
+  const handleSelectPhoto = async (file: File | null) => {
     if (!file) return
-    const previewUrl = URL.createObjectURL(file)
-    setModelPhoto(previewUrl)
-    nav('/model/setup2')
+    if (!file.type.startsWith('image/')) {
+      Toast.show({ content: '请选择图片文件' })
+      return
+    }
+    try {
+      const previewUrl = await fileToDataUrl(file)
+      setModelPhoto(previewUrl)
+      nav('/model/setup2')
+    } catch {
+      Toast.show({ content: '读取图片失败' })
+    }
   }
 
   return (
@@ -76,7 +87,7 @@ export default function ModelSetup1() {
           accept="image/*"
           className="msetup__file-input"
           onChange={(e) => {
-            handleSelectPhoto(e.target.files?.[0] ?? null)
+            void handleSelectPhoto(e.target.files?.[0] ?? null)
             e.currentTarget.value = ''
           }}
         />
@@ -87,7 +98,7 @@ export default function ModelSetup1() {
           capture="environment"
           className="msetup__file-input"
           onChange={(e) => {
-            handleSelectPhoto(e.target.files?.[0] ?? null)
+            void handleSelectPhoto(e.target.files?.[0] ?? null)
             e.currentTarget.value = ''
           }}
         />

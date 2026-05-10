@@ -20,7 +20,7 @@ export function TabLayout() {
       <div className="tab-layout__main">
         <Outlet />
       </div>
-      <TabBar className="app-tabbar" activeKey={active} safeArea onChange={(key) => navigate(key, { replace: true })}>
+      <TabBar className="app-tabbar" activeKey={active} onChange={(key) => navigate(key, { replace: true })}>
         {tabs.map((item) => (
           <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
         ))}

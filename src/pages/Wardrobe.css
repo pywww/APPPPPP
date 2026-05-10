@@ -1,39 +1,202 @@
+/* 衣橱页：对齐 Figma Screen/Wardrobe（node 1:349），数值仅使用 design-system.css 中 --ds-* token */
+
+.wardrobe {
+  min-height: 100%;
+  position: relative;
+}
+
+/* 与顶栏无缝衔接；左右图标相对默认共内收 30px（两段各 15px，均用 --ds-line-height-15） */
+.wardrobe .app-header {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-inline: calc((var(--ds-space-4) + var(--ds-line-height-15) + var(--ds-line-height-15)) * -1);
+  padding-inline: calc(var(--ds-space-4) + var(--ds-line-height-15) + var(--ds-line-height-15));
+}
+
+/* 仅左侧菜单图标再向右 15px（不带动右侧筛选图标） */
+.wardrobe .app-header__side:first-child {
+  margin-left: calc(var(--ds-space-2) + var(--ds-line-height-15));
+}
+
+/* 仅右侧筛选图标再向左 15px（与左侧对称思路：加大 margin-right） */
+.wardrobe .app-header__side--right {
+  margin-right: calc(var(--ds-space-2) + var(--ds-line-height-15));
+}
+
+/* 筛选图标尺寸（替代内联 fontSize） */
+.wardrobe .wardrobe__filter-btn {
+  font-size: var(--ds-font-size-title-sm);
+}
+
+/* Figma「Nav - QuickCategoryBar」 */
+.wardrobe__category-bar {
+  flex-shrink: 0;
+  height: var(--ds-size-header);
+  display: flex;
+  align-items: center;
+  background: var(--ds-color-overlay-header);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--ds-border-width-default) solid var(--ds-border-color-default);
+}
+
+.wardrobe__category-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ds-space-4);
+  padding-inline: var(--ds-space-4);
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.wardrobe__category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.wardrobe__category-pill {
+  flex-shrink: 0;
+}
+
 .wardrobe__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding: 0 var(--space-page) 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-2) var(--ds-space-4)
+    calc(var(--ds-size-bottom-nav) + var(--ds-space-14) + var(--ds-space-3) + var(--ds-space-1));
 }
 
 .wardrobe__cell {
-  aspect-ratio: 3 / 4;
-  border-radius: 12px;
-  overflow: hidden;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: #e5e7eb;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ds-radius-md);
+  box-shadow: var(--ds-shadow-md);
+  background: var(--ds-color-neutral-0);
+}
+
+.wardrobe__cell-media {
+  position: relative;
+  background: var(--ds-color-neutral-200);
+  overflow: hidden;
 }
 
 .wardrobe__cell img {
   width: 100%;
-  height: 100%;
+  height: calc(var(--ds-space-20) + var(--ds-space-20) + var(--ds-size-header) + var(--ds-space-3));
   object-fit: cover;
   display: block;
 }
 
+.wardrobe__cell-badge {
+  position: absolute;
+  left: var(--ds-space-2);
+  top: var(--ds-space-2);
+  backdrop-filter: blur(4px);
+}
+
+.wardrobe__meta {
+  padding: var(--ds-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.wardrobe__name {
+  margin: 0;
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-20);
+  color: var(--ds-color-text-primary);
+  font-weight: var(--ds-font-weight-medium);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wardrobe__sub {
+  margin: 0;
+  font-size: var(--ds-font-size-overline);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-tertiary);
+  font-weight: var(--ds-font-weight-regular);
+}
+
 /* 从试穿结果保存后进入：突出显示对应试穿图 */
 .wardrobe__cell--emphasize {
-  box-shadow: 0 0 0 2px #015edf;
-  outline: 2px solid rgba(1, 94, 223, 0.35);
-  outline-offset: 2px;
+  box-shadow: var(--ds-shadow-md), 0 0 0 var(--ds-border-width-default) var(--ds-color-brand-primary);
+  outline: var(--ds-border-width-default) solid var(--ds-color-brand-primary-soft-2);
+  outline-offset: var(--ds-space-1);
 }
 
 .wardrobe__empty {
-  padding: 48px 24px;
+  padding: var(--ds-space-12) var(--ds-space-6)
+    calc(var(--ds-size-bottom-nav) + var(--ds-space-10));
   text-align: center;
 }
 
 .wardrobe__empty .adm-button {
-  margin-top: 16px;
+  margin-top: var(--ds-space-4);
+}
+
+/* Figma Floating Action Button：令牌对齐 btn--primary + ds-shadow-brand-fab；支持拖拽时改用 left/top */
+.wardrobe__fab {
+  position: absolute;
+  right: var(--ds-space-6);
+  bottom: calc(var(--ds-size-bottom-nav) + var(--ds-space-3));
+  width: var(--ds-space-14);
+  height: var(--ds-space-14);
+  border-radius: var(--ds-radius-full);
+  border: var(--ds-border-width-default) solid var(--ds-color-brand-primary);
+  background: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+  font-size: var(--ds-font-size-display-sm);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--ds-shadow-brand-fab);
+  cursor: grab;
+  z-index: 20;
+  touch-action: none;
+  user-select: none;
+}
+
+.wardrobe__fab:active {
+  cursor: grabbing;
+  background: var(--ds-color-brand-primary-deep);
+  border-color: var(--ds-color-brand-primary-deep);
+}
+
+.wardrobe__fab--placed {
+  right: auto;
+  bottom: auto;
+}
+
+.wardrobe__fab:hover {
+  background: var(--ds-color-brand-primary-hover);
+  border-color: var(--ds-color-brand-primary-hover);
+}
+
+@media (max-width: 360px) {
+  .wardrobe__grid {
+    gap: var(--ds-space-3);
+    padding-inline: var(--ds-space-3);
+  }
+
+  .wardrobe__cell img {
+    height: calc(var(--ds-space-20) + var(--ds-space-12) + var(--ds-size-header));
+  }
+
+  .wardrobe__fab {
+    width: var(--ds-size-button-xl);
+    height: var(--ds-size-button-xl);
+    right: var(--ds-space-4);
+    bottom: calc(var(--ds-size-bottom-nav) + var(--ds-space-2));
+  }
 }

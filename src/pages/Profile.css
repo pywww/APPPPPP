@@ -1,0 +1,266 @@
+/**
+ * 个人中心 — 对齐设计稿布局
+ * 仅使用 design-system.css 中的 --ds-* Design Token。
+ */
+
+.profile {
+  min-height: 100%;
+  background: var(--ds-color-neutral-75);
+}
+
+.profile__main {
+  padding: var(--ds-space-4);
+  padding-bottom: calc(var(--ds-space-6) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  box-sizing: border-box;
+}
+
+/* ---------- 用户摘要 ---------- */
+.profile__hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-4);
+}
+
+.profile__avatar {
+  width: var(--ds-space-14);
+  height: var(--ds-space-14);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-brand-primary-soft);
+  color: var(--ds-color-text-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile__avatar-svg {
+  width: var(--ds-line-height-28);
+  height: var(--ds-line-height-28);
+  display: block;
+}
+
+.profile__hello {
+  min-width: 0;
+}
+
+.profile__name {
+  margin: 0;
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-color-text-primary);
+}
+
+.profile__sub {
+  margin: var(--ds-space-1) 0 0;
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-secondary);
+}
+
+/* ---------- 区块标题：我的模特 + 编辑 ---------- */
+.profile__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+}
+
+.profile__section-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+}
+
+.profile__section-title {
+  margin: 0;
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-color-text-primary);
+}
+
+.profile__edit-btn {
+  border: none;
+  padding: 0;
+  background: none;
+  font-family: inherit;
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-color-text-brand);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.profile__edit-btn:active {
+  opacity: 0.85;
+}
+
+/* ---------- 模特大图卡 ---------- */
+.profile__model-card {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--ds-radius-md);
+}
+
+.profile__model-photo {
+  width: 100%;
+  display: block;
+  min-height: calc(var(--ds-space-20) * 3 + var(--ds-space-8));
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.profile__model-placeholder {
+  min-height: calc(var(--ds-space-20) * 3 + var(--ds-space-8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--ds-color-neutral-150) 0%, var(--ds-color-neutral-200) 100%);
+}
+
+.profile__model-placeholder-text {
+  font-size: var(--ds-font-size-body-sm);
+  color: var(--ds-color-text-placeholder);
+}
+
+/* 左下角标签 A-01 */
+.profile__model-tag {
+  position: absolute;
+  left: var(--ds-space-3);
+  bottom: var(--ds-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  padding: var(--ds-space-1) var(--ds-space-2);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-color-gradient-hero-mask-from);
+  color: var(--ds-color-text-inverse);
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+}
+
+.profile__model-tag-icon {
+  font-size: var(--ds-font-size-body-sm);
+  flex-shrink: 0;
+}
+
+/* ---------- 独立入口卡片（我的穿搭 / 教程） ---------- */
+.profile__tile {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-3) var(--ds-space-4);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.profile__tile:active {
+  filter: brightness(0.98);
+}
+
+.profile__tile-icon {
+  width: var(--ds-space-10);
+  height: var(--ds-space-10);
+  border-radius: var(--ds-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ds-color-text-inverse);
+}
+
+.profile__tile-icon--pink {
+  background: var(--ds-color-accent-pink);
+  color: var(--ds-color-text-inverse);
+}
+
+/* 查看新手教程：#0057CF @ 7%（token：--ds-color-brand-primary-hover-soft-7） */
+.profile__tile-icon--blue {
+  background: var(--ds-color-brand-primary-hover-soft-7);
+  color: var(--ds-color-brand-primary-hover);
+}
+
+.profile__tile-icon-svg {
+  width: var(--ds-space-6);
+  height: var(--ds-space-6);
+  display: block;
+}
+
+.profile__tile-label {
+  flex: 1;
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  color: var(--ds-color-text-primary);
+  min-width: 0;
+}
+
+.profile__tile-meta {
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-placeholder);
+  flex-shrink: 0;
+}
+
+.profile__tile-chevron {
+  font-size: var(--ds-font-size-body-sm);
+  color: var(--ds-color-text-placeholder);
+  flex-shrink: 0;
+}
+
+/* ---------- 底部分割 + 文字链 ---------- */
+.profile__footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.profile__rule {
+  height: 0;
+  border: none;
+  border-top: var(--ds-border-width-default) solid var(--ds-border-color-default);
+  margin: var(--ds-space-2) 0 var(--ds-space-3);
+}
+
+.profile__text-link {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ds-space-3) 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  color: var(--ds-color-text-primary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.profile__text-link:active {
+  opacity: 0.85;
+}
+
+.profile__text-link-icon {
+  font-size: var(--ds-font-size-body-lg);
+  color: var(--ds-color-text-placeholder);
+  flex-shrink: 0;
+}

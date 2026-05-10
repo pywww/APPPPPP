@@ -1,12 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Toast } from 'antd-mobile'
 import { AppHeader } from '@/components/layout/AppHeader'
 import { HangerIcon, SparkleIcon } from '@/components/icons/AppIcons'
+import { createTryOnTask, getTryOnTask } from '@/api/tryon'
+import { useAppStore } from '@/stores/appStore'
 import { useTryOnStore } from '@/stores/tryOnStore'
 import './TryOnLoading.css'
 
-/** 与进度条动画时长一致（约 15s 从 0% 走到 100%） */
-const LOADING_DURATION_MS = 15_000
+/** 轮询任务状态：略缩短间隔以便完成后尽快跳转 */
+const POLL_INTERVAL_MS = 2000
+/** 连续轮询异常阈值：超过后切换本地演示链路，避免用户被卡在失败页 */
+const MAX_POLL_ERROR_RETRY = 6
+/** 进度条匀速跑满时长（毫秒）：0%→100% 线性，与接口实际耗时无关；任务先完成则直接跳到 100% */
+const PROGRESS_DURATION_MS = 10_000
+const PROGRESS_TICK_MS = 150
 
 /**
  * Figma Screen/TryOn/LoadingA（1:1277）— 试穿生成中（含居中进度弹窗）
@@ -14,19 +22,113 @@ const LOADING_DURATION_MS = 15_000
 export default function TryOnLoading() {
   const nav = useNavigate()
   const garmentPreviewUrl = useTryOnStore((s) => s.garmentPreviewUrl)
+  const modelPhoto = useAppStore((s) => s.modelPhoto)
   const setResult = useTryOnStore((s) => s.setResult)
+  const setTaskId = useTryOnStore((s) => s.setTaskId)
+  const setFailReason = useTryOnStore((s) => s.setFailReason)
+  const [progressPct, setProgressPct] = useState(0)
 
   useEffect(() => {
     if (!garmentPreviewUrl) {
       nav('/tryon/pick', { replace: true })
       return
     }
-    const t = window.setTimeout(() => {
+    if (!modelPhoto?.trim()) {
+      Toast.show({ content: '请先上传模特全身照' })
+      nav('/model/setup1', { replace: true })
+      return
+    }
+    let stopped = false
+    let timer = 0
+    let progressTimer = 0
+    let pollErrorCount = 0
+
+    const clearProgressTimer = () => {
+      if (progressTimer) {
+        window.clearInterval(progressTimer)
+        progressTimer = 0
+      }
+    }
+
+    /** 匀速进度：10 秒内从 0% 线性增至 100%；到达 100% 后停止计时器直至任务结束或跳转 */
+    const startProgressFrom = (startedAt: number) => {
+      clearProgressTimer()
+      progressTimer = window.setInterval(() => {
+        if (stopped) return
+        const elapsed = Date.now() - startedAt
+        const p = Math.min(100, (elapsed / PROGRESS_DURATION_MS) * 100)
+        setProgressPct(p)
+        if (p >= 100) {
+          clearProgressTimer()
+        }
+      }, PROGRESS_TICK_MS)
+    }
+
+    /**
+     * 当后端未启动/网络异常时，降级到本地演示结果，保证试穿主链路可走通。
+     */
+    const resolveWithLocalResult = () => {
+      if (stopped) return
+      clearProgressTimer()
+      setProgressPct(100)
       setResult(garmentPreviewUrl)
+      Toast.show({ content: '已切换为本地演示模式' })
       nav('/tryon/result', { replace: true })
-    }, LOADING_DURATION_MS)
-    return () => window.clearTimeout(t)
-  }, [garmentPreviewUrl, nav, setResult])
+    }
+
+    const start = async () => {
+      try {
+        const task = await createTryOnTask(garmentPreviewUrl, modelPhoto)
+        if (stopped) return
+        setTaskId(task.id)
+        // 任务已创建、后端开始处理的时刻起算进度，避免与固定秒数动画错位
+        startProgressFrom(Date.now())
+
+        const poll = async () => {
+          try {
+            const latest = await getTryOnTask(task.id)
+            if (stopped) return
+            if (latest.status === 'success' && latest.resultImageUrl) {
+              clearProgressTimer()
+              setProgressPct(100)
+              setResult(latest.resultImageUrl)
+              nav('/tryon/result', { replace: true })
+              return
+            }
+            if (latest.status === 'failed') {
+              clearProgressTimer()
+              const reason = latest.failReason?.trim() || '试穿失败，请重试'
+              setFailReason(reason)
+              Toast.show({ content: reason.length > 60 ? `${reason.slice(0, 60)}…` : reason })
+              nav('/tryon/error', { replace: true })
+              return
+            }
+            timer = window.setTimeout(poll, POLL_INTERVAL_MS)
+          } catch {
+            if (stopped) return
+            pollErrorCount += 1
+            if (pollErrorCount > MAX_POLL_ERROR_RETRY) {
+              resolveWithLocalResult()
+              return
+            }
+            timer = window.setTimeout(poll, POLL_INTERVAL_MS)
+          }
+        }
+
+        await poll()
+      } catch {
+        if (stopped) return
+        resolveWithLocalResult()
+      }
+    }
+
+    void start()
+    return () => {
+      stopped = true
+      window.clearTimeout(timer)
+      clearProgressTimer()
+    }
+  }, [garmentPreviewUrl, modelPhoto, nav, setResult, setFailReason, setTaskId])
 
   if (!garmentPreviewUrl) return null
 
@@ -57,7 +159,7 @@ export default function TryOnLoading() {
           </div>
 
           <div className="tload__progress" aria-hidden>
-            <div className="tload__progress-fill" />
+            <div className="tload__progress-fill" style={{ width: `${progressPct}%` }} />
           </div>
 
           <div className="tload__footer">

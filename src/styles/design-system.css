@@ -9,6 +9,8 @@
   --ds-color-brand-primary-hover: #0057cf;
   --ds-color-brand-primary-deep: #00429c;
   --ds-color-brand-primary-soft: rgba(1, 94, 223, 0.05);
+  /** 与 --ds-color-brand-primary-hover（#0057CF）同色相，7% 透明度，用于浅底图标区等 */
+  --ds-color-brand-primary-hover-soft-7: rgba(0, 87, 207, 0.07);
   --ds-color-brand-primary-soft-2: rgba(0, 87, 207, 0.18);
   --ds-color-accent-pink: #fcb1c6;
   --ds-color-accent-pink-soft: rgba(252, 177, 201, 0.2);
@@ -146,7 +148,7 @@
   line-height: var(--ds-line-height-28);
   letter-spacing: var(--ds-letter-spacing-tight-title);
   color: var(--ds-color-text-brand);
-  font-weight: var(--ds-font-weight-regular);
+  font-weight: var(--ds-font-weight-semibold);
 }
 
 /* Button */

@@ -1,26 +1,179 @@
-.workshop__body {
-  padding: var(--space-page);
-}
-
-.workshop__split {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-  min-height: 360px;
-}
-
-.workshop__card {
-  padding: 12px;
-  background: var(--color-card);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  font-size: 14px;
-}
-
-.workshop__card .hint {
-  display: block;
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--color-text-secondary);
-}
+.workshop {
+  min-height: 100dvh;
+  background: var(--ds-color-neutral-75);
+}
+
+.workshop__body {
+  padding: var(--ds-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+}
+
+.workshop__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-space-3);
+  min-height: 568px;
+}
+
+.workshop__canvas,
+.workshop__garments {
+  min-height: 568px;
+  overflow: hidden;
+}
+
+.workshop__canvas {
+  position: relative;
+  background: linear-gradient(180deg, var(--ds-color-neutral-150) 0%, var(--ds-color-neutral-200) 100%);
+}
+
+.workshop__model-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.workshop__model-empty {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  color: var(--ds-color-text-brand);
+  cursor: pointer;
+}
+
+.workshop__model-empty-title {
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.workshop__model-empty-sub {
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-secondary);
+}
+
+.workshop__selected-overlay {
+  position: absolute;
+  left: var(--ds-space-3);
+  right: var(--ds-space-3);
+  bottom: var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-overlay-white-60);
+  backdrop-filter: blur(8px);
+  padding: var(--ds-space-2);
+}
+
+.workshop__selected-empty {
+  font-size: var(--ds-font-size-body-sm);
+  color: var(--ds-color-text-secondary);
+}
+
+.workshop__selected-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.workshop__selected-item {
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workshop__garments {
+  padding: var(--ds-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+}
+
+.workshop__category-row {
+  display: flex;
+  gap: var(--ds-space-2);
+  overflow-x: auto;
+  padding-bottom: var(--ds-space-1);
+}
+
+.workshop__category-row .tag {
+  flex: 0 0 auto;
+  height: 32px;
+  padding: 0 12px;
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+}
+
+.workshop__garment-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ds-space-2);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.workshop__garment-item {
+  border: 1px solid var(--ds-border-color-default);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-neutral-0);
+  padding: var(--ds-space-2);
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--ds-space-2);
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+}
+
+.workshop__garment-item--active {
+  border-color: var(--ds-color-brand-primary);
+  box-shadow: 0 0 0 1px var(--ds-color-brand-primary-soft-2);
+  background: var(--ds-color-brand-primary-soft);
+}
+
+.workshop__garment-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--ds-radius-sm);
+}
+
+.workshop__garment-name {
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-primary);
+}
+
+.workshop__empty-wrap {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-2);
+}
+
+.workshop__empty-btn {
+  width: 100%;
+}
+
+.workshop__footer {
+  display: flex;
+  justify-content: center;
+}
+
+.workshop__save-btn {
+  width: 100%;
+}

@@ -1,0 +1,81 @@
+/* 我的穿搭列表 — 使用 --ds-* token */
+
+.looks {
+  min-height: 100%;
+  background: var(--ds-color-neutral-75);
+}
+
+.looks__main {
+  padding: var(--ds-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  box-sizing: border-box;
+}
+
+.looks__loading,
+.looks__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-8);
+}
+
+.looks__error-text {
+  margin: 0;
+  font-size: var(--ds-font-size-body-sm);
+  color: var(--ds-color-text-secondary);
+  text-align: center;
+}
+
+.looks__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ds-space-3);
+}
+
+.looks__cell {
+  width: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  background: var(--ds-color-neutral-0);
+  border-radius: var(--ds-radius-md);
+  box-shadow: var(--ds-shadow-md);
+  overflow: hidden;
+}
+
+.looks__cell-media {
+  aspect-ratio: 3 / 4;
+  background: var(--ds-color-neutral-200);
+  overflow: hidden;
+}
+
+.looks__cell-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.looks__cell-title {
+  margin: 0;
+  padding: var(--ds-space-2) var(--ds-space-3);
+  font-size: var(--ds-font-size-body-sm);
+  line-height: var(--ds-line-height-16);
+  color: var(--ds-color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.looks__cta {
+  display: flex;
+  justify-content: center;
+}

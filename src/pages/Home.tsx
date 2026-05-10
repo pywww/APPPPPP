@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div className="home">
-      <AppHeader title="AI 穿搭助手" showBack={false} />
+      <AppHeader title="FitMirror" showBack={false} />
 
       {/* 关键引导卡：保持与设计稿一致的“先设置模特”入口 */}
       <button type="button" className="home__setup-card" onClick={() => nav('/model/setup1')}>

@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, Input, List, Picker, Toast } from 'antd-mobile'
 import { AppHeader } from '@/components/layout/AppHeader'
-import { db } from '@/db'
+import { getGarment, updateGarment } from '@/api/garments'
+import './ResultEdit.css'
 
 const categories = ['上衣', '下装', '连衣裙', '外套', '鞋子', '配饰', '其他']
 
+/**
+ * 编辑衣物 — 与衣橱详情同源走后端 PATCH，不再写本地 Dexie。
+ */
 export default function ResultEdit() {
   const [sp] = useSearchParams()
   const nav = useNavigate()
@@ -23,42 +27,51 @@ export default function ResultEdit() {
       return
     }
     const n = Number(raw)
+    if (!Number.isFinite(n)) {
+      Toast.show({ content: '衣物 ID 无效' })
+      nav(-1)
+      return
+    }
     setId(n)
-    db.garments.get(n).then((row) => {
-      if (!row) {
+    getGarment(n)
+      .then((row) => {
+        setName(row.name)
+        setCategory(row.category || '其他')
+        setColor(row.color || '')
+      })
+      .catch(() => {
         Toast.show({ content: '未找到衣物' })
         nav(-1)
-        return
-      }
-      setName(row.name)
-      setCategory(row.category)
-      setColor(row.color)
-    })
+      })
   }, [nav, sp])
 
   const save = async () => {
     if (id == null) return
-    await db.garments.update(id, {
-      name: name.trim() || '未命名',
-      category,
-      color: color.trim(),
-    })
-    Toast.show({ content: '保存成功' })
-    nav(-1)
+    try {
+      await updateGarment(id, {
+        name: name.trim() || '未命名',
+        category,
+        color: color.trim(),
+      })
+      Toast.show({ content: '保存成功' })
+      nav(-1)
+    } catch (e) {
+      Toast.show({ content: e instanceof Error ? e.message : '保存失败' })
+    }
   }
 
   return (
     <div>
       <AppHeader title="编辑衣物" onBack={() => nav(-1)} />
-      <List style={{ marginTop: 12 }}>
+      <List className="result-edit__list">
         <List.Item extra={<Input value={name} onChange={setName} placeholder="衣物名称" />}>名称</List.Item>
         <List.Item clickable onClick={() => setPickerOpen(true)} extra={category}>
           品类
         </List.Item>
         <List.Item extra={<Input value={color} onChange={setColor} placeholder="如：米色" />}>颜色</List.Item>
       </List>
-      <div style={{ padding: 'var(--space-page)' }}>
-        <Button block color="primary" shape="rounded" onClick={save}>
+      <div className="result-edit__actions">
+        <Button block color="primary" shape="rounded" onClick={() => void save()}>
           保存
         </Button>
       </div>

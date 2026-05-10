@@ -5,7 +5,10 @@
 .app-shell {
   width: 100%;
   max-width: var(--app-max-width, 390px);
-  min-height: 100svh;
+  /* 填满 #root 的固定视口高度，高度随内容无限增长会导致底栏被裁切 */
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
   background: var(--color-bg);
   box-shadow:
     0 0 0 1px rgb(28 25 23 / 6%),

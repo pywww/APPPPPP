@@ -32,14 +32,12 @@ export default function TryOnPick() {
     }
     try {
       const url = await fileToDataUrl(file)
-      // 选图后进入「试穿新衣选择」态（Figma 1:1204），由用户确认后再进入加载
       setGarmentPreview(url)
     } catch {
       Toast.show({ content: '读取图片失败' })
     }
   }
 
-  // 相册入口统一走权限弹窗，便于与 Figma 的权限组件保持一致。
   const openAlbumWithPermission = () => {
     const granted = window.localStorage.getItem(ALBUM_PERMISSION_KEY) === '1'
     if (granted) {
@@ -50,7 +48,6 @@ export default function TryOnPick() {
   }
 
   const onConfirmAlbumPermission = () => {
-    // 用户首次明确允许后持久化记录，后续不再重复弹窗。
     window.localStorage.setItem(ALBUM_PERMISSION_KEY, '1')
     setShowAlbumPermission(false)
     albumInputRef.current?.click()
@@ -61,7 +58,6 @@ export default function TryOnPick() {
     nav('/tryon/loading')
   }
 
-  // SelectedA：返回即回到 EmptyA（同路由，清空预览）；空态再走历史返回。
   const onHeaderBack = () => {
     if (garmentPreviewUrl) {
       setGarmentPreview('')
@@ -89,6 +85,7 @@ export default function TryOnPick() {
                   src={garmentPreviewUrl}
                   alt="已选择的衣物照片"
                   className="tpick__preview-img"
+                  loading="lazy"
                 />
                 <span className="badge badge--success tpick__preview-badge">衣物已识别</span>
               </>
@@ -112,13 +109,11 @@ export default function TryOnPick() {
           <div className="tpick__tips">
             {garmentPreviewUrl ? (
               <div className="tpick__tips-detail">
-                {/* SelectedA：手工断行 + nowrap，避免「秒/内」等被拆行 */}
-                <p className="tpick__tips-detail-line">自动识别衣物轮廓。点击“开始试穿”后，</p>
+                <p className="tpick__tips-detail-line">已载入照片。点击「开始试穿」后，</p>
                 <p className="tpick__tips-detail-line">AI 将在 15-30 秒内为您生成逼真的上身效果图。</p>
               </div>
             ) : (
               <div className="tpick__tips-detail tpick__tips-detail--empty">
-                {/* EmptyA：拍摄指引，按字数对半断行（约 21 + 21 字），两行视觉长度接近 */}
                 <p className="tpick__tips-detail-line">为了获得最佳的试穿效果，请确保衣服照片光线</p>
                 <p className="tpick__tips-detail-line">充足且背景简洁，建议使用全身或半身正面照。</p>
               </div>

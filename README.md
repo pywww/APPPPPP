@@ -1,3 +1,9 @@
+# AI 试穿 · 衣橱 H5（Vite + React + NestJS）
+
+产品说明、文档索引与本地运行步骤见 **[docs/DELIVERY_MANIFEST.md](docs/DELIVERY_MANIFEST.md)**。以下为 Vite 模板自带的英文说明（可忽略 ESLint 扩展段落若不需要）。
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

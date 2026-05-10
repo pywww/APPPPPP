@@ -4,7 +4,6 @@ import { Toast } from 'antd-mobile'
 import { AppHeader } from '@/components/layout/AppHeader'
 import { Grid2x2Icon, HangerIcon, RefreshIcon } from '@/components/icons/AppIcons'
 import { useTryOnStore } from '@/stores/tryOnStore'
-import { db } from '@/db'
 import './TryOnResult.css'
 
 /**
@@ -22,17 +21,16 @@ export default function TryOnResult() {
 
   if (!resultUrl) return null
 
-  const save = async () => {
-    const id = await db.garments.add({
-      name: '新衣物',
-      category: '其他',
-      color: '',
-      createdAt: Date.now(),
-      originalDataUrl: garmentPreviewUrl,
-      resultDataUrl: resultUrl,
+  /** 先进入衣物详情草稿页，填写分类与颜色后再入库 */
+  const goFillDetailThenSave = () => {
+    nav('/wardrobe/item/new', {
+      replace: false,
+      state: {
+        fromTryOn: true as const,
+        originalDataUrl: garmentPreviewUrl,
+        resultDataUrl: resultUrl,
+      },
     })
-    Toast.show({ content: '已保存到衣橱' })
-    nav('/wardrobe', { replace: true, state: { savedGarmentId: id } })
   }
 
   return (
@@ -49,7 +47,7 @@ export default function TryOnResult() {
 
       <div className="tresult__fab-wrap" role="toolbar" aria-label="试穿结果操作">
         <div className="tresult__fab">
-          <button type="button" className="tresult__fab-primary btn btn--primary btn--md" onClick={save}>
+          <button type="button" className="tresult__fab-primary btn btn--primary btn--md" onClick={goFillDetailThenSave}>
             <HangerIcon className="tresult__fab-icon" aria-hidden />
             <span>保存到衣橱</span>
           </button>

@@ -1,43 +1,40 @@
 /* Screen/TryOn/Result — 主图全屏 + 底部悬浮操作面板 */
 
-/* 整页 390 画板；主画布区宽度 390 且左右贴齐（无水平内边距） */
+/* 整页占满视口宽度；主图区铺满顶栏下方剩余空间 */
 .tresult {
   width: 100%;
-  max-width: 390px;
+  max-width: min(448px, 100%);
   min-height: 100dvh;
   height: 100dvh;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  background: var(--ds-color-neutral-75);
+  background: var(--ds-color-neutral-200);
   box-sizing: border-box;
 }
 
-/* 覆盖 design-system 中大屏 .page 的 448，本页固定 390 宽 */
 @media (min-width: 448px) {
   .tresult.page {
-    max-width: 390px;
-    width: 390px;
+    max-width: 448px;
   }
 }
 
 .tresult .app-header {
   position: relative;
   z-index: 30;
+  flex-shrink: 0;
   width: 100%;
-  max-width: 390px;
   height: 56px;
   margin: 0;
   align-self: stretch;
   box-sizing: border-box;
 }
 
-/* Main Canvas：与 390 画板同宽，左右贴齐屏幕边缘（无 padding-inline） */
+/* Main：占满顶栏下方整段高度，无水平内边距 */
 .tresult__main {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-width: 390px;
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -60,37 +57,42 @@
 
 .tresult__stage {
   position: relative;
-  flex: 1;
+  flex: 1 1 auto;
+  width: 100%;
   min-height: 0;
+  /* 保证主图区至少铺满一屏减顶栏，避免 flex 子项高度塌陷 */
+  min-height: calc(100dvh - 56px);
   border-radius: 0;
   background: var(--ds-color-neutral-200);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .tresult__stage::before {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 0;
+  /* 底部略深，衬托悬浮操作条区域 */
   background: linear-gradient(
     180deg,
-    var(--ds-color-neutral-200) 0%,
-    var(--ds-color-neutral-250) 100%
+    transparent 55%,
+    rgba(0, 0, 0, 0.12) 100%
   );
+  pointer-events: none;
 }
 
 .tresult__photo {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   max-width: none;
   max-height: none;
-  object-fit: contain;
-  object-position: center;
+  /* 铺满容器；与 contain 相比会裁切少量边缘，观感更接近「全屏试穿」 */
+  object-fit: cover;
+  object-position: center center;
 }
 
 /* 底部悬浮面板：与 390 画板对齐，内层卡片固定 358×146 */
@@ -101,7 +103,7 @@
   bottom: 0;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 390px;
+  max-width: min(448px, 100%);
   display: flex;
   justify-content: center;
   padding: var(--ds-space-4);

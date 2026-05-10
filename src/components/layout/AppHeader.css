@@ -1,13 +1,14 @@
+/* 与 design-system.css 中 .app-header 对齐，布局保持项目栅格；颜色与字号仅使用 --ds-* token */
 .app-header {
-  height: 56px;
-  margin: 0 calc(var(--space-page) * -1) 16px;
-  padding: 0 var(--space-page);
-  background: rgb(239 244 251 / 80%);
+  height: var(--ds-size-header);
+  margin: 0 calc(var(--ds-space-4) * -1) var(--ds-space-4);
+  padding: 0 var(--ds-space-4);
+  background: var(--ds-color-overlay-header);
   backdrop-filter: blur(12px);
   display: grid;
   grid-template-columns: 24px 1fr 24px;
   align-items: center;
-  column-gap: 8px;
+  column-gap: var(--ds-space-2);
 }
 
 .app-header__side {
@@ -18,22 +19,28 @@
   justify-content: center;
 }
 
+.app-header__side:first-child {
+  margin-left: var(--ds-space-2);
+}
+
 .app-header__side--right {
   justify-self: end;
+  margin-right: var(--ds-space-2);
 }
 
 .app-header__icon-btn {
   width: 24px;
   height: 24px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--ds-radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: #015edf;
+  color: var(--ds-color-text-brand);
   padding: 0;
-  font-size: 20px;
+  font-size: var(--ds-font-size-title-sm);
+  cursor: pointer;
 }
 
 .app-header__menu-icon {
@@ -53,11 +60,11 @@
 .app-header__title {
   margin: 0;
   text-align: center;
-  color: #015edf;
-  font-size: 18px;
-  line-height: 28px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  color: var(--ds-color-text-brand);
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
 }
 
 .app-header__placeholder {

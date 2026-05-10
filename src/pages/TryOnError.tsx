@@ -13,6 +13,7 @@ import './TryOnError.css'
 export default function TryOnError() {
   const nav = useNavigate()
   const clear = useTryOnStore((s) => s.clear)
+  const failReason = useTryOnStore((s) => s.failReason)
 
   const goReupload = () => {
     clear()
@@ -40,8 +41,14 @@ export default function TryOnError() {
               生成未成功
             </h2>
             <div className="terr__desc">
-              <p className="terr__desc-line">我们的 AI 裁缝暂时遇到了一些技术障碍，</p>
-              <p className="terr__desc-line">请尝试重新上传您的照片。</p>
+              {failReason ? (
+                <p className="terr__desc-line terr__desc-line--detail">{failReason}</p>
+              ) : (
+                <>
+                  <p className="terr__desc-line">我们的 AI 裁缝暂时遇到了一些技术障碍，</p>
+                  <p className="terr__desc-line">请尝试重新上传您的照片。</p>
+                </>
+              )}
             </div>
           </div>
 

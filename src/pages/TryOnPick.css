@@ -48,26 +48,24 @@
   );
 }
 
-/* Figma「试穿新衣选择」：已选图时弱化底纹，突出预览 */
+/* 已选图：预览铺满灰色区域（cover 裁剪多余边，避免四周留白） */
 .tpick__image-stage--has-preview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 438px;
+  min-height: 438px;
 }
 
 .tpick__image-stage--has-preview::before {
-  opacity: 0.45;
+  display: none;
 }
 
 .tpick__preview-img {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
   display: block;
-  max-width: 100%;
-  max-height: 438px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .tpick__preview-badge {

@@ -6,6 +6,7 @@
 
 html {
   background: var(--color-chrome-outer);
+  height: 100%;
 }
 
 html,
@@ -27,12 +28,22 @@ body {
 
 body {
   background: var(--color-chrome-outer);
+  overflow: hidden;
+  /* 与 #root 同高，避免仅子元素设 height 时百分比参考链断裂 */
+  height: 100%;
 }
 
 /* 外层：桌面端两侧留白；真机窄屏铺满 */
 #root {
-  min-height: 100dvh;
+  /*
+   * 固定为视口高度（不要用仅 min-height），否则主内容变高时外壳会整体增高，
+   * 在 body overflow:hidden 下底栏会被裁到视口外；浏览器放大到 100% 时更明显。
+   */
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
   display: flex;
   justify-content: center;
   align-items: stretch;
+  overflow: hidden;
 }

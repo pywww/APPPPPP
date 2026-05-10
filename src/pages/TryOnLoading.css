@@ -138,22 +138,13 @@
   overflow: hidden;
 }
 
-/* 蓝色进度约 15s 从最左匀速铺满至最右，与 TS 中 LOADING_DURATION_MS 保持一致 */
+/* 宽度由 TS 匀速线性更新（约 10s 到 100%；任务先完成则直接 100%） */
 .tload__progress-fill {
   height: 100%;
-  width: 0%;
   border-radius: var(--ds-radius-full);
   background: var(--ds-color-brand-primary);
-  animation: tload-progress-linear 15s linear forwards;
-}
-
-@keyframes tload-progress-linear {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
+  transition: width 0.08s linear;
+  will-change: width;
 }
 
 .tload__footer {

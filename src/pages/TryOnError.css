@@ -108,6 +108,13 @@
   text-align: center;
 }
 
+/* 接口返回的具体失败原因：可多行、左对齐便于阅读 */
+.terr__desc-line--detail {
+  text-align: left;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
 /* —— 操作按钮：默认纵向全宽，≥400px 时双列 —— */
 .terr__actions {
   display: flex;

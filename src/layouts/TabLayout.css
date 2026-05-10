@@ -8,25 +8,49 @@
 .tab-layout__main {
   flex: 1;
   min-height: 0;
-  overflow: auto;
-  background: var(--color-bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--ds-color-neutral-75);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+/* 去掉页面可见滚动条（保留滚动能力） */
+.tab-layout__main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* 全局底栏：总高 var(--ds-size-bottom-nav)（80px，含顶边与安全区内边距） */
 .app-tabbar.adm-tab-bar {
   flex-shrink: 0;
-  border-top: 1px solid rgb(15 23 42 / 8%);
-  background: rgb(239 244 251 / 80%);
+  box-sizing: border-box;
+  height: var(--ds-size-bottom-nav);
+  min-height: var(--ds-size-bottom-nav);
+  max-height: var(--ds-size-bottom-nav);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-top: var(--ds-border-width-default) solid var(--ds-border-color-default);
+  background: var(--ds-color-overlay-header);
   backdrop-filter: blur(12px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  box-shadow: 0 -20px 40px rgb(1 94 223 / 6%);
+  box-shadow: var(--ds-shadow-brand-top);
+}
+
+.app-tabbar .adm-tab-bar-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: center;
 }
 
 .app-tabbar .adm-tab-bar-item {
-  color: #94a3b8;
+  color: var(--ds-color-text-placeholder);
 }
 
 .app-tabbar .adm-tab-bar-item-active {
-  color: #015edf;
+  color: var(--ds-color-text-brand);
 }
 
 .app-tabbar .adm-tab-bar-item-icon {

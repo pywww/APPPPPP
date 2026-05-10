@@ -1,63 +1,416 @@
-.wdetail {
+/**
+ * 衣物详情页 — Figma node 1:676（Screen/Wardrobe/Detail）
+ * 画幅宽度 390（与 app-shell --app-max-width 一致）；顶栏 390×56、底栏 390×80。
+ */
+
+.wardrobe-detail {
+  /* 与 app-shell 设计幅宽一致，避免魔法数散落 */
+  --wd-canvas: min(100%, var(--app-max-width, 390px));
+
+  position: relative;
+  /* 建立包含块，使子树内 position:fixed 的 Popup/遮罩相对本页而非整窗（弹层收紧在详情画幅） */
+  transform: translateZ(0);
+
   min-height: 100%;
-  padding-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  /* 为固定底栏（80px + 安全区，与全局 TabBar 策略一致）留出滚动空间 */
+  padding-bottom: calc(var(--ds-size-bottom-nav) + env(safe-area-inset-bottom, 0px));
 }
 
-.wdetail__slide {
-  background: #111;
+/* 顶栏：390×56（高用 --ds-size-header=56），水平居中 */
+.wardrobe-detail .app-header {
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  height: var(--ds-size-header);
+  min-height: var(--ds-size-header);
+  max-height: var(--ds-size-header);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  box-sizing: border-box;
 }
 
-.wdetail__slide img {
-  width: 100%;
-  max-height: 420px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
+/* 顶栏下方虚线（与主色边框令牌一致），与顶栏同宽居中 */
+.wardrobe-detail__dash-rule {
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  margin-inline: auto;
+  border: none;
+  border-bottom: var(--ds-border-width-default) dashed var(--ds-border-color-default);
 }
 
-.wdetail__cap {
+.wardrobe-detail__loading {
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  margin: var(--ds-space-6) auto;
+  padding-inline: var(--ds-space-4);
+  box-sizing: border-box;
   text-align: center;
-  color: #fff;
-  font-size: 12px;
+  font-size: var(--ds-font-size-body);
+  color: var(--ds-color-text-quaternary);
+}
+
+.wardrobe-detail__empty-wrap {
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  margin-inline: auto;
+  padding: var(--ds-space-12) var(--ds-space-4);
+  box-sizing: border-box;
+}
+
+.wardrobe-detail__main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  margin-inline: auto;
+  padding: var(--ds-space-4) var(--ds-space-4) var(--ds-space-6);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* ---------- 主图：固定宽高视口，图片 cover 填充，不随 intrinsic 尺寸撑开 ---------- */
+.wardrobe-detail__media {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* 固定画幅：Swiper 使用组件变量 --height（见 antd-mobile swiper.css） */
+.wardrobe-detail__media-inner {
+  position: relative;
+  width: 100%;
+}
+
+/* 主图卡片可视高度：原令牌组合 + 50px + 30px 增量 */
+.wardrobe-detail__swiper.adm-swiper {
+  --height: calc(var(--ds-space-20) * 4 + var(--ds-space-8) + 50px + 30px);
+  --width: 100%;
+  width: 100%;
+}
+
+.wardrobe-detail__swiper .adm-swiper-slide {
+  height: 100%;
+}
+
+.wardrobe-detail__slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--ds-color-neutral-200);
+  overflow: hidden;
+}
+
+.wardrobe-detail__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* 左下角图注胶囊 */
+.wardrobe-detail__slide-label {
+  position: absolute;
+  left: var(--ds-space-3);
+  bottom: calc(var(--ds-space-10) + var(--ds-space-1));
+  z-index: 2;
+  padding: var(--ds-space-1) var(--ds-space-3);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-neutral-150);
+  color: var(--ds-color-text-brand);
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+  font-weight: var(--ds-font-weight-medium);
+}
+
+/* 无试穿图时的占位（仍在固定画幅内） */
+.wardrobe-detail__slide-placeholder {
   margin: 0;
-  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--ds-space-4);
+  text-align: center;
+  font-size: var(--ds-font-size-body);
+  color: var(--ds-color-text-placeholder);
 }
 
-.wdetail__slide .wdetail__cap.muted {
-  color: #9ca3af;
-  padding: 48px 16px 16px;
+/* 指示点：antd 已 absolute 居中，仅微调距底边距 */
+.wardrobe-detail__media-inner .adm-swiper-indicator {
+  bottom: var(--ds-space-3);
+  z-index: 2;
 }
 
-.wdetail__info {
-  margin: var(--space-page);
-  padding: 16px;
-  background: var(--color-card);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+.wardrobe-detail .wardrobe-detail__page-indicator {
+  --dot-color: var(--ds-color-neutral-300);
+  --active-dot-color: var(--ds-color-brand-primary);
 }
 
-.wdetail__info h2 {
-  margin: 0 0 8px;
-  font-size: 18px;
+/* ---------- 标题与属性行 ---------- */
+.wardrobe-detail__meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
 }
 
-.wdetail__info p {
-  margin: 4px 0;
-  font-size: 14px;
+.wardrobe-detail__hero-title {
+  margin: 0;
+  font-size: var(--ds-font-size-title-sm);
+  line-height: var(--ds-line-height-28);
+  letter-spacing: var(--ds-letter-spacing-tight-title);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-color-text-brand);
 }
 
-.wdetail__info .muted {
-  color: var(--color-text-secondary);
-  font-size: 12px;
+/* 分类 / 颜色行背景：#E9EEF5，对应 design-system 中 --ds-color-neutral-200 */
+.wardrobe-detail__prop-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background: var(--ds-color-neutral-200);
+  border-radius: var(--ds-radius-md);
 }
 
-.wdetail__footer {
+/* 分类行：整行可点，弹出与图二一致的选项 */
+.wardrobe-detail__prop-card--category {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.wardrobe-detail__prop-value--with-chevron {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+}
+
+.wardrobe-detail__prop-chevron {
+  font-size: var(--ds-font-size-body-sm);
+  color: var(--ds-color-text-placeholder);
+  flex-shrink: 0;
+}
+
+.wardrobe-detail__prop-label {
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  color: var(--ds-color-text-secondary);
+  font-weight: var(--ds-font-weight-medium);
+}
+
+.wardrobe-detail__prop-value {
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-24);
+  color: var(--ds-color-text-primary);
+  text-align: right;
+}
+
+.wardrobe-detail__prop-value--color {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+}
+
+/* 分类选择弹层：底部上滑，选项为横向可滚动标签（与衣橱顶部分类条交互一致） */
+.wardrobe-detail__category-popup-body {
+  border-top-left-radius: var(--ds-radius-md);
+  border-top-right-radius: var(--ds-radius-md);
+}
+
+.wardrobe-detail__category-panel {
+  background: var(--ds-color-neutral-0);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.wardrobe-detail__category-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ds-space-2);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.wardrobe-detail__category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.wardrobe-detail__category-pill {
+  flex: 0 0 auto;
+}
+
+.wardrobe-detail__category-cancel {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-top: var(--ds-border-width-default) solid var(--ds-border-color-default);
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background: var(--ds-color-neutral-50);
+  font: inherit;
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-24);
+  color: var(--ds-color-text-primary);
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wardrobe-detail__category-cancel:active {
+  background: var(--ds-color-neutral-200);
+}
+
+/* 无后端色值时用中性圆点示意 */
+.wardrobe-detail__swatch {
+  width: var(--ds-space-3);
+  height: var(--ds-space-3);
+  border-radius: var(--ds-radius-full);
+  flex-shrink: 0;
+  background: var(--ds-color-neutral-250);
+  border: var(--ds-border-width-default) solid var(--ds-border-color-default);
+}
+
+.wardrobe-detail__time {
+  margin: 0;
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-15);
+  letter-spacing: var(--ds-letter-spacing-tab-caption);
+  color: var(--ds-color-text-placeholder);
+}
+
+/* 试穿入库草稿：颜色行内联输入 */
+.wardrobe-detail__prop-card--color-edit {
+  align-items: stretch;
+}
+
+.wardrobe-detail__prop-card--color-edit .wardrobe-detail__prop-label {
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.wardrobe-detail__color-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.wardrobe-detail__color-input .adm-input-element {
+  text-align: right;
+  font-size: var(--ds-font-size-body);
+}
+
+/* 试穿草稿页：底部双按钮更高，主区多留滚动空间 */
+.wardrobe-detail--draft-new {
+  padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- 底栏：390×80（高用 --ds-size-bottom-nav=80），与全局 TabBar 同高策略 ---------- */
+.wardrobe-detail__footer {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 12px var(--space-page);
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  background: var(--color-card);
-  box-shadow: 0 -4px 12px rgb(0 0 0 / 6%);
+  z-index: 10;
+  width: var(--wd-canvas);
+  max-width: var(--app-max-width, 390px);
+  margin-inline: auto;
+  height: var(--ds-size-bottom-nav);
+  min-height: var(--ds-size-bottom-nav);
+  max-height: var(--ds-size-bottom-nav);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 var(--ds-space-4);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  overflow: hidden;
+  background: var(--ds-color-neutral-0);
+  border-top: var(--ds-border-width-default) dashed var(--ds-border-color-default);
+  box-shadow: var(--ds-shadow-overlay-panel);
+  border-radius: var(--ds-radius-md) var(--ds-radius-md) 0 0;
+}
+
+/* 试穿入库草稿：双按钮纵向排列，底栏随内容增高 */
+.wardrobe-detail__footer--draft {
+  height: auto;
+  min-height: var(--ds-size-bottom-nav);
+  max-height: none;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  padding-bottom: calc(var(--ds-space-3) + env(safe-area-inset-bottom, 0px));
+}
+
+.wardrobe-detail__actions--draft {
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+
+.wardrobe-detail__btn-save-draft {
+  width: 100%;
+}
+
+.wardrobe-detail__actions--draft .btn {
+  width: 100%;
+}
+
+.wardrobe-detail__actions {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.wardrobe-detail__actions .btn {
+  width: 100%;
+  gap: var(--ds-space-2);
+}
+
+.wardrobe-detail__btn-icon {
+  font-size: var(--ds-font-size-body-lg);
+  flex-shrink: 0;
+}
+
+.wardrobe-detail__btn-edit .wardrobe-detail__btn-icon {
+  color: var(--ds-color-text-inverse);
+}
+
+.wardrobe-detail__btn-outline-del .wardrobe-detail__btn-icon {
+  color: var(--ds-color-text-brand);
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 360px) {
+  .wardrobe-detail__main {
+    padding-inline: var(--ds-space-3);
+  }
+
+  .wardrobe-detail__footer {
+    padding-inline: var(--ds-space-3);
+  }
+
+  .wardrobe-detail__loading {
+    margin-inline: var(--ds-space-3);
+  }
+
+  .wardrobe-detail__empty-wrap {
+    padding-inline: var(--ds-space-3);
+  }
 }

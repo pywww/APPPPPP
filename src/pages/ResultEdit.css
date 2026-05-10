@@ -1,0 +1,8 @@
+/* 编辑页列表顶距：替代内联 marginTop */
+.result-edit__list {
+  margin-top: var(--ds-space-2);
+}
+
+.result-edit__actions {
+  padding: var(--ds-space-4);
+}
